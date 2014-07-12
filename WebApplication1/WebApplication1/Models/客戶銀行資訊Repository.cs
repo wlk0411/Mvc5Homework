@@ -21,10 +21,10 @@ namespace WebApplication1.Models
             }
         }
 
-        public 客戶銀行資訊 GetById( int? id )
-        {
-            return this.All().Where(x => x.Id == id.Value && !x.IsDelete).FirstOrDefault();
-        }
+        //public 客戶銀行資訊 GetById( int? id )
+        //{
+        //    return this.All().Where(x => x.Id == id.Value && !x.IsDelete).FirstOrDefault();
+        //}
     }
 
     public interface I客戶銀行資訊Repository : IRepository<客戶銀行資訊>

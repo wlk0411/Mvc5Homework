@@ -21,10 +21,10 @@ namespace WebApplication1.Models
             }
         }
 
-        public 客戶資料 GetById( int? id )
-        {
-            return this.All().Where(x => x.Id == id.Value && !x.IsDelete).FirstOrDefault();
-        }
+        //public 客戶資料 GetById( int? id )
+        //{
+        //    return this.All().Where(x => x.Id == id.Value && !x.IsDelete).FirstOrDefault();
+        //}
     }
 
     public interface I客戶資料Repository : IRepository<客戶資料>
