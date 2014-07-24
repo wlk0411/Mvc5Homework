@@ -64,6 +64,118 @@
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
         </div>
+        
+
+
+
+        <hr />
+
+
+        <h4>客戶聯絡人</h4>
+        @{
+            var contact = Model.客戶聯絡人.ToArray();
+        }
+        <table class="table">
+            <tr>
+                <th>
+                    職稱
+                </th>
+                <th>
+                    姓名
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    手機
+                </th>
+                <th>
+                    電話
+                </th>
+                <th></th>
+            </tr>
+
+            @for( var i = 0; i < contact.Length; i++ )
+            {
+                <tr>
+                    <td>
+                        @Html.HiddenFor(modelItem => contact[i].Id)
+                        @Html.HiddenFor(modelItem => contact[i].客戶Id)
+                        @Html.EditorFor(modelItem => contact[i].職稱)
+                    </td>
+                    <td>
+                        @Html.EditorFor(modelItem => contact[i].姓名)
+                    </td>
+                    <td>
+                        @Html.EditorFor(modelItem => contact[i].Email)
+                        @Html.ValidationMessageFor(modelItem => contact[i].Email, "", new { @class = "text-danger" })
+                    </td>
+                    <td>
+                        @Html.EditorFor(modelItem => contact[i].手機)
+                    </td>
+                    <td>
+                        @Html.EditorFor(modelItem => contact[i].電話)
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+
+        <hr />
+
+
+        <h4>客戶銀行資訊</h4>
+        @{
+            var bank = Model.客戶銀行資訊.ToArray();
+        }
+        <table class="table">
+            <tr>
+                <th>
+                    銀行名稱
+                </th>
+                <th>
+                    銀行代碼
+                </th>
+                <th>
+                    分行代碼
+                </th>
+                <th>
+                    帳戶名稱
+                </th>
+                <th>
+                    帳戶號碼
+                </th>
+                <th></th>
+            </tr>
+
+            @for( var i = 0; i < bank.Length; i++ )
+            {
+                <tr>
+                    <td>
+                        @Html.HiddenFor(modelItem => bank[i].Id)
+                        @Html.HiddenFor(modelItem => bank[i].客戶Id)
+                        @Html.EditorFor(modelItem => bank[i].銀行名稱)
+                    </td>
+                    <td>
+                        @Html.EditorFor(modelItem => bank[i].銀行代碼)
+                    </td>
+                    <td>
+                        @Html.EditorFor(modelItem => bank[i].分行代碼)
+                    </td>
+                    <td>
+                        @Html.EditorFor(modelItem => bank[i].帳戶名稱)
+                    </td>
+                    <td>
+                        @Html.EditorFor(modelItem => bank[i].帳戶號碼)
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

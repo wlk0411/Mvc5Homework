@@ -10,7 +10,7 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
-    public class BankController : Controller
+    public class BankController : BaseController
     {
         private 客戶銀行資訊Repository repo = RepositoryHelper.Get客戶銀行資訊Repository();
         private 客戶資料Repository repoCustomer = RepositoryHelper.Get客戶資料Repository();
@@ -85,14 +85,27 @@ namespace WebApplication1.Controllers
         // 詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit( [Bind(Include = "Id,客戶Id,銀行名稱,銀行代碼,分行代碼,帳戶名稱,帳戶號碼,IsDelete")] 客戶銀行資訊 客戶銀行資訊 )
+        public ActionResult Edit(
+            int? id,
+            FormCollection form
+            //[Bind(Include = "Id,客戶Id,銀行名稱,銀行代碼,分行代碼,帳戶名稱,帳戶號碼,IsDelete")] 客戶銀行資訊 客戶銀行資訊
+            )
         {
-            if( ModelState.IsValid )
+            //if( ModelState.IsValid )
+            //{
+            //    repo.UnitOfWork.Context.Entry(客戶銀行資訊).State = EntityState.Modified;
+            //    repo.UnitOfWork.Commit();
+            //    return RedirectToAction("Index");
+            //}
+
+            var 客戶銀行資訊 = repo.GetById(id);
+
+            if( TryUpdateModel<I客戶銀行資訊更新>(客戶銀行資訊) )
             {
-                repo.UnitOfWork.Context.Entry(客戶銀行資訊).State = EntityState.Modified;
                 repo.UnitOfWork.Commit();
                 return RedirectToAction("Index");
             }
+
             ViewBag.客戶Id = new SelectList(repoCustomer.All(), "Id", "客戶名稱", 客戶銀行資訊.客戶Id);
             return View(客戶銀行資訊);
         }
@@ -122,6 +135,7 @@ namespace WebApplication1.Controllers
             //repo.Delete(客戶銀行資訊);
             //repo.UnitOfWork.Commit();
             repo.DeleteById(id);
+            repo.UnitOfWork.Commit();
             return RedirectToAction("Index");
         }
 

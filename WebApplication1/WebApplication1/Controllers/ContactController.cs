@@ -10,7 +10,7 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
-    public class ContactController : Controller
+    public class ContactController : BaseController
     {
         private 客戶聯絡人Repository repo = RepositoryHelper.Get客戶聯絡人Repository();
         private 客戶資料Repository repoCustomer = RepositoryHelper.Get客戶資料Repository();
@@ -85,14 +85,27 @@ namespace WebApplication1.Controllers
         // 詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit( [Bind(Include = "Id,客戶Id,職稱,姓名,Email,手機,電話,IsDelete")] 客戶聯絡人 客戶聯絡人 )
+        public ActionResult Edit(
+            int? id,
+            FormCollection form
+            //[Bind(Include = "Id,客戶Id,職稱,姓名,Email,手機,電話,IsDelete")] 客戶聯絡人 客戶聯絡人
+            )
         {
-            if( ModelState.IsValid )
+            //if( ModelState.IsValid )
+            //{
+            //    repo.UnitOfWork.Context.Entry(客戶聯絡人).State = EntityState.Modified;
+            //    repo.UnitOfWork.Commit();
+            //    return RedirectToAction("Index");
+            //}
+
+            var 客戶聯絡人 = repo.GetById(id);
+
+            if( TryUpdateModel<I客戶聯絡人更新>(客戶聯絡人) )
             {
-                repo.UnitOfWork.Context.Entry(客戶聯絡人).State = EntityState.Modified;
                 repo.UnitOfWork.Commit();
                 return RedirectToAction("Index");
             }
+
             ViewBag.客戶Id = new SelectList(repoCustomer.All(), "Id", "客戶名稱", 客戶聯絡人.客戶Id);
             return View(客戶聯絡人);
         }
@@ -122,6 +135,7 @@ namespace WebApplication1.Controllers
             //repo.Delete(客戶聯絡人);
             //repo.UnitOfWork.Commit();
             repo.DeleteById(id);
+            repo.UnitOfWork.Commit();
             return RedirectToAction("Index");
         }
 

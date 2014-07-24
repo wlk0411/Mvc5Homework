@@ -17,7 +17,7 @@ namespace WebApplication1.Models
             if( data != null )
             {
                 data.IsDelete = true;
-                UnitOfWork.Commit();
+                //UnitOfWork.Commit();
             }
         }
 
